@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\JsonResponse;
 
 class Handler extends ExceptionHandler
 {
@@ -21,10 +23,22 @@ class Handler extends ExceptionHandler
     /**
      * Register the exception handling callbacks for the application.
      */
-    public function register(): void
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        return response()->json(['error' => 'Unauthenticated'], 401);
+
+    }
+    
+    public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+            // You can perform any custom reporting here
+        });
+
+        $this->renderable(function (Throwable $e, $request) {
+            $customExceptionHandler = app(\App\Exceptions\CustomExceptionHandler::class);
+            return $customExceptionHandler->render($request, $e);
         });
     }
 }
