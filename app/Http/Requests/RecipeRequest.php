@@ -26,7 +26,9 @@ class RecipeRequest extends FormRequest
                 return [
                 'name' => 'required|string',
                 'type' => 'required|string',
-                'ingredients' => 'required|string',
+                'ingredients' => 'array', 
+                'ingredients.*.id' => 'required|exists:ingredients,id', 
+                'ingredients.*.quantity' => 'required|numeric|min:0', 
                 'price' => 'required|numeric',
                 'description' => 'required|string',
                 ];
@@ -34,7 +36,9 @@ class RecipeRequest extends FormRequest
                 return [
                     'name' => 'required|string',
                     'type' => 'required|string',
-                    'ingredients' => 'required|string',
+                    'ingredients' => 'array', 
+                    'ingredients.*.id' => 'required|exists:ingredients,id', 
+                    'ingredients.*.quantity' => 'required|numeric|min:0', 
                     'price' => 'required|numeric',
                     'description' => 'required|string',
                 ];

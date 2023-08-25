@@ -10,12 +10,12 @@ class Recipe extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'type', 'ingredients', 'price', 'description',
+        'name', 'type', 'price', 'description',
     ];
 
     public function ingredients()
     {
-        return $this->belongsToMany(Ingredient::class);
+        return $this->belongsToMany(Ingredient::class)->withPivot('quantity');
     }
     
 }

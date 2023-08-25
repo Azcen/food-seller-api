@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('type');
-            $table->text('ingredients');
             $table->decimal('price', 8, 2);
             $table->text('description');
             $table->timestamps();

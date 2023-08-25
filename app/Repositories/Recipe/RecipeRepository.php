@@ -11,9 +11,11 @@ class RecipeRepository implements RecipeRepositoryInterface
         return Recipe::all();
     }
 
-    public function create(array $data)
+    public function create(array $data, array $ingredientsData)
     {
-        return Recipe::create($data);
+        $recipe = Recipe::create($data);
+        $this->syncIngredients($recipe, $ingredientsData);
+        return $recipe;
     }
 
     public function show($id)
@@ -21,10 +23,11 @@ class RecipeRepository implements RecipeRepositoryInterface
         return Recipe::findOrFail($id);
     }
 
-    public function update($id, array $data)
+    public function update($id, array $data, array $ingredientsData)
     {
         $recipe = Recipe::findOrFail($id);
         $recipe->update($data);
+        $this->syncIngredients($recipe, $ingredientsData);
 
         return $recipe;
     }
@@ -35,5 +38,18 @@ class RecipeRepository implements RecipeRepositoryInterface
         $recipe->delete();
 
         return $recipe;
+    }
+
+    protected function syncIngredients(Recipe $recipe, $ingredientsData)
+    {
+        $pivotData = [];
+
+        foreach ($ingredientsData as $ingredientData) {
+            $ingredientId = $ingredientData['id'];
+            $quantity = $ingredientData['quantity'];
+            $pivotData[$ingredientId] = ['quantity' => $quantity];
+        }
+
+        $recipe->ingredients()->sync($pivotData);
     }
 }
