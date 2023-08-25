@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\Auth\AuthController;
 use App\Http\Controllers\V1\RecipeController;
+use App\Http\Controllers\V1\IngredientController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,6 +26,7 @@ Route::prefix('v1')->group(function () {
     });
     Route::middleware('auth:jwt')->group(function () {
         Route::apiResource('recipes', RecipeController::class);
+        Route::apiResource('ingredients', IngredientController::class);
     });
     
 });

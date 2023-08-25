@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Repositories\RecipeRepositoryInterface;
+use App\Repositories\Recipe\RecipeRepositoryInterface;
 
 class RecipeService
 {

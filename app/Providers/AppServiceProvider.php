@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Repositories\AuthRepository;
-use App\Repositories\AuthRepositoryInterface;
-use App\Repositories\RecipeRepository;
-use App\Repositories\RecipeRepositoryInterface;
+use App\Repositories\Auth\AuthRepository;
+use App\Repositories\Auth\AuthRepositoryInterface;
+use App\Repositories\Recipe\RecipeRepository;
+use App\Repositories\Recipe\RecipeRepositoryInterface;
+use App\Repositories\Ingredient\IngredientRepository;
+use App\Repositories\Ingredient\IngredientRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             RecipeRepositoryInterface::class, 
             RecipeRepository::class
+        );
+        $this->app->bind(
+            IngredientRepositoryInterface::class, 
+            IngredientRepository::class
         );
     }
 
