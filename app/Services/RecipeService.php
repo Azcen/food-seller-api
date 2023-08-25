@@ -51,7 +51,7 @@ class RecipeService
         return $ingredients->map(function ($ingredient) {
             return [
                 'id' => $ingredient->id,
-                'name' => $ingredient->name, // Include the ingredient name
+                'name' => $ingredient->name,
                 'quantity' => $ingredient->pivot->quantity,
             ];
         });

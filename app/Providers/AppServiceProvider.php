@@ -9,6 +9,8 @@ use App\Repositories\Recipe\RecipeRepository;
 use App\Repositories\Recipe\RecipeRepositoryInterface;
 use App\Repositories\Ingredient\IngredientRepository;
 use App\Repositories\Ingredient\IngredientRepositoryInterface;
+use App\Repositories\Order\OrderRepository;
+use App\Repositories\Order\OrderRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +30,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             IngredientRepositoryInterface::class, 
             IngredientRepository::class
+        );
+        $this->app->bind(
+            OrderRepositoryInterface::class, 
+            OrderRepository::class
         );
     }
 
