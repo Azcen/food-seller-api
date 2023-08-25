@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\Auth\AuthController;
+use App\Http\Controllers\V1\RecipeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,6 +23,10 @@ Route::prefix('v1')->group(function () {
             Route::get('/user-profile', [AuthController::class, 'userProfile']);
         });
     });
+    Route::middleware('auth:jwt')->group(function () {
+        Route::apiResource('recipes', RecipeController::class);
+    });
+    
 });
 
 
