@@ -15,22 +15,15 @@ class RecipeService
 
     public function handleGetRecipes()
     {
-        $recipe = $this->recipeRepository->all();
-        return $recipe->map(function ($item) {
-            return [
-                'id' => $item->id,
-                'name' => $item->name,
-                'type' => $recipe->type,
-                'price' => $recipe->price,
-                'description' => $recipe->description,
-                'ingredients' => $this->formatIngredients($item->ingredients),
-            ];
+        $recipes = $this->recipeRepository->all();
+        return $recipes->map(function ($recipe) {
+            return $this->formatRecipeData($recipe);
         });
     }
 
     public function handleCreateRecipe(array $data)
     {
-        $ingredientsData = $data['ingredients'];
+        $ingredientsData = $data['ingredients'] ?? [];
         unset($data['ingredients']);
         return $this->recipeRepository->create($data, $ingredientsData);
     }
