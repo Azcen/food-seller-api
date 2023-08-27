@@ -49,6 +49,6 @@ class CustomExceptionHandler extends ExceptionHandler
             '500' => 'Internal Server Error (DOOMED)',
         ];
 
-        return $types[$code];
+        return $types[$code] ?? 'Unexpected Error';
     }
 }

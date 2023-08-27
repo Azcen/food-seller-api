@@ -40,6 +40,7 @@ class AuthRepository implements AuthRepositoryInterface
     {
         $token = JWTAuth::parseToken(); 
         $token->invalidate(); 
+        Auth::logout();
     }
 
     public function getProfile()
