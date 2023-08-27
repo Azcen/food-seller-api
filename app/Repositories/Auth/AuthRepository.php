@@ -23,17 +23,9 @@ class AuthRepository implements AuthRepositoryInterface
         ]);
     }
 
-    public function login(array $credentials)
+    public function login()
     {
-        try {
-            if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'Unauthorized'], 401);
-            }
-        } catch (JWTException $e) {
-            return response()->json(['error' => 'Could not create token'], 500);
-        }
-
-        return $token;
+        return auth()->user();
     }
 
     public function logout()

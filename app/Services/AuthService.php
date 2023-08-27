@@ -30,8 +30,15 @@ class AuthService
 
     public function handleLogin(array $credentials)
     {
-        $token = $this->authRepository->login($credentials);
-        $user = auth()->user();
+        try {
+            if (!$token = JWTAuth::attempt($credentials)) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+        } catch (JWTException $e) {
+            return response()->json(['error' => 'Could not create token'], 500);
+        }
+        
+        $user = $this->authRepository->login();
 
         return [
             'user' => $user,
