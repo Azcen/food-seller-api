@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Exceptions\CustomException;
+use Illuminate\Contracts\Validation\Validator;
 
 class OrderRequest extends FormRequest
 {
@@ -40,5 +42,11 @@ class OrderRequest extends FormRequest
           return [
               //
           ];
+    }
+    
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new CustomException('Unprocessable Request.', 422);
     }
 }
