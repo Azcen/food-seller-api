@@ -25,7 +25,8 @@ class RecipeService
     {
         $ingredientsData = $data['ingredients'] ?? [];
         unset($data['ingredients']);
-        return $this->recipeRepository->create($data, $ingredientsData);
+        $recipe = $this->recipeRepository->create($data, $ingredientsData);
+        return $this->formatRecipeData($recipe);
     }
 
     public function handleGetRecipe($id)
