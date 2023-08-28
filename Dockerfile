@@ -25,15 +25,26 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 COPY . .
 
 # Copy .env.example to .env
-COPY .env.example .env
+# COPY .env.example .env
 
 # Set environment variables
+ARG DATABASE_URL
+ARG DB_CONNECTION
+ARG DB_HOST
+ARG DB_PORT
+ARG DB_DATABASE
+ARG DB_USERNAME
+ARG DB_PASSWORD
+ARG DB_SSLMODE
+
 ENV DATABASE_URL=${DATABASE_URL}
+ENV DB_CONNECTION=${DB_CONNECTION}
 ENV DB_HOST=${DB_HOST}
 ENV DB_PORT=${DB_PORT}
 ENV DB_DATABASE=${DB_DATABASE}
 ENV DB_USERNAME=${DB_USERNAME}
 ENV DB_PASSWORD=${DB_PASSWORD}
+ENV DB_SSLMODE=${DB_SSLMODE}
 
 # Install Laravel dependencies
 RUN composer install
