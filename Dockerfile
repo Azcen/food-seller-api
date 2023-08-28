@@ -27,6 +27,14 @@ COPY . .
 # Copy .env.example to .env
 COPY .env.example .env
 
+# Set environment variables
+ENV DATABASE_URL=${DATABASE_URL}
+ENV DB_HOST=${DB_HOST}
+ENV DB_PORT=${DB_PORT}
+ENV DB_DATABASE=${DB_DATABASE}
+ENV DB_USERNAME=${DB_USERNAME}
+ENV DB_PASSWORD=${DB_PASSWORD}
+
 # Install Laravel dependencies
 RUN composer install
 
@@ -37,6 +45,7 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 RUN php artisan key:generate
 RUN php artisan jwt:secret
 RUN php artisan config:clear
+RUN php artisan cache:clear
 RUN php artisan migrate
 
 # Expose port 8080 and start the PHP-FPM server
