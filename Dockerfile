@@ -18,7 +18,7 @@ COPY app/composer.json app/composer.lock /var/www/html/
 RUN composer install --no-dev --no-scripts --no-suggest --optimize-autoloader
 
 # Copy application code
-COPY app /var/www/html
+COPY . .
 
 # Generate the application key
 RUN php artisan key:generate
