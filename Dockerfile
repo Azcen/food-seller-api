@@ -23,17 +23,14 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Copy application files to the container
 COPY . .
 
+# Copy the .env file
+COPY .env.example .env
+
 # Install Laravel dependencies
 RUN composer install
 
-# Install npm dependencies
-RUN apt-get install -y npm
-RUN npm install
-
 # Set permissions for Laravel
 RUN chown -R www-data:www-data /var/www/food-seller-api/storage /var/www/food-seller-api/bootstrap/cache
-
-RUN apt-get update && apt-get install -y nano
 
 # Run Laravel commands
 RUN php artisan key:generate
