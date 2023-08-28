@@ -117,12 +117,10 @@ class OrderService
 
         $newQuantity = $ingredient->quantity - $quantity;
 
-        // Perform validation to prevent negative quantities
         if ($newQuantity < 0) {
-            $newQuantity = 0; // You might need a different handling strategy
+            $newQuantity = 0; 
         }
 
-        // Update the ingredient's quantity in the database
         $this->ingredientRepository->update($ingredientId, ['quantity' => $newQuantity]);
     }
 }

@@ -96,11 +96,4 @@ class AuthController extends Controller
         return response()->json($this->authService->getUserProfile(), 200);
     }
 
-    public function test()
-    {
-        return response()->json([
-            'msg' => 'test',
-        ]);
-    }
-
 }

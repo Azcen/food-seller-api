@@ -130,7 +130,7 @@ class OrderController extends Controller
      *         name="id",
      *         in="path",
      *         required=true,
-     *         @OA\Schema(type="string"),
+     *         @OA\Schema(type="integer"),
      *         description="ID of the order"
      *     ),
      *     @OA\RequestBody(
@@ -194,7 +194,7 @@ class OrderController extends Controller
      *         name="id",
      *         in="path",
      *         required=true,
-     *         @OA\Schema(type="string"),
+     *         @OA\Schema(type="integer"),
      *         description="ID of the order"
      *     ),
      *     @OA\Response(
