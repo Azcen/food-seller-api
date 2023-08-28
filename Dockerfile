@@ -53,8 +53,6 @@ RUN composer install
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Run Laravel commands
-RUN php artisan key:generate
-RUN php artisan jwt:secret
 RUN php artisan config:clear
 RUN php artisan cache:clear
 RUN php artisan migrate
