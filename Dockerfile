@@ -55,7 +55,7 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 # Run Laravel commands
 RUN php artisan config:clear
 RUN php artisan cache:clear
-RUN php artisan migrate
+RUN php artisan migrate --force
 
 # Expose port 8080 and start the PHP-FPM server
 EXPOSE 8080
