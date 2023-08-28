@@ -3,6 +3,8 @@
 namespace App\Repositories\Ingredient;
 
 use App\Models\Ingredient;
+use App\Exceptions\CustomException;
+
 
 class IngredientRepository implements IngredientRepositoryInterface
 {
@@ -18,12 +20,21 @@ class IngredientRepository implements IngredientRepositoryInterface
 
     public function show($id)
     {
-        return Ingredient::findOrFail($id);
+        $ingredient = Ingredient::find($id);
+        if (!$ingredient) {
+            throw new CustomException('Ingredient not found.', 404);
+        }
+
+        return $ingredient;
     }
 
     public function update($id, array $data)
     {
-        $ingredient = Ingredient::findOrFail($id);
+        $ingredient = Ingredient::find($id);
+        if (!$ingredient) {
+            throw new CustomException('Ingredient not found.', 404);
+        }
+
         $ingredient->update($data);
 
         return $ingredient;
@@ -31,7 +42,10 @@ class IngredientRepository implements IngredientRepositoryInterface
 
     public function destroy($id)
     {
-        $ingredient = Ingredient::findOrFail($id);
+        $ingredient = Ingredient::find($id);
+        if (!$ingredient) {
+            throw new CustomException('Ingredient not found.', 404);
+        }
         $ingredient->delete();
 
         return $ingredient;

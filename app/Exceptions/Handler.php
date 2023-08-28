@@ -23,12 +23,6 @@ class Handler extends ExceptionHandler
     /**
      * Register the exception handling callbacks for the application.
      */
-
-    protected function unauthenticated($request, AuthenticationException $exception)
-    {
-        return response()->json(['error' => 'Unauthenticated'], 401);
-
-    }
     
     public function register()
     {

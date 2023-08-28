@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Exceptions\CustomException;
+use Illuminate\Contracts\Validation\Validator;
 
 class IngredientRequest extends FormRequest
 {
@@ -23,7 +25,28 @@ class IngredientRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'quantity' => 'required|string',
+            'quantity' => 'required|numeric',
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'The :attribute field is required.',
+            'name.string' => 'The :attribute field must be a string.',
+            'quantity.required' => 'The :attribute field is required.',
+            'quantity.numeric' => 'The :attribute field must be a number.',
+        ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new CustomException('Unprocessable Request.', 422);
+    }
+
 }
