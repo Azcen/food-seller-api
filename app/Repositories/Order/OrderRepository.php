@@ -20,19 +20,29 @@ class OrderRepository implements OrderRepositoryInterface
 
     public function show($id)
     {
-        return Order::with('orderDetails.recipe:id,name')->find($id);
+        $order = Order::with('orderDetails.recipe:id,name')->find($id);
+        if (!$order) {
+            throw new CustomException('Order not found.', 404);
+        }
+        return $order;
     }
 
     public function update($id, array $data)
     {
-        $order = Order::findOrFail($id);
+        $order = Order::find($id);
+        if (!$order) {
+            throw new CustomException('Order not found.', 404);
+        }
         $order->update(['status' => $data['status']]);
         return $order;
     }
 
     public function delete($id)
     {
-        $order = Order::findOrFail($id);
+        $order = Order::find($id);
+        if (!$order) {
+            throw new CustomException('Order not found.', 404);
+        }
         $order->delete();
     }
 }

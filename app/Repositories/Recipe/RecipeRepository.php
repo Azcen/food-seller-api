@@ -20,12 +20,21 @@ class RecipeRepository implements RecipeRepositoryInterface
 
     public function show($id)
     {
-        return Recipe::findOrFail($id);
+        $recipe = Recipe::find($id);
+        if (!$recipe) {
+            throw new CustomException('Recipe not found.', 404);
+        }
+
+        return $recipe;
     }
 
     public function update($id, array $data, array $ingredientsData)
     {
-        $recipe = Recipe::findOrFail($id);
+        $recipe = Recipe::find($id);
+        if (!$recipe) {
+            throw new CustomException('Recipe not found.', 404);
+        }
+
         $recipe->update($data);
         $this->syncIngredients($recipe, $ingredientsData);
 
@@ -34,7 +43,10 @@ class RecipeRepository implements RecipeRepositoryInterface
 
     public function destroy($id)
     {
-        $recipe = Recipe::findOrFail($id);
+        $recipe = Recipe::find($id);
+        if (!$recipe) {
+            throw new CustomException('Recipe not found.', 404);
+        }
         $recipe->delete();
 
         return $recipe;
