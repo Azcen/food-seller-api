@@ -25,7 +25,7 @@ class IngredientService
 
     public function handleGetIngredient($id)
     {
-        return $this->ingredientRepository->show($id);
+        return $this->ingredientRepository->find($id);
     }
 
     public function handleUpdateIngredient($id, array $data)

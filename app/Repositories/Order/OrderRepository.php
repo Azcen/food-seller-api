@@ -18,7 +18,7 @@ class OrderRepository implements OrderRepositoryInterface
         return $order;
     }
 
-    public function show($id)
+    public function find($id)
     {
         $order = Order::with('orderDetails.recipe:id,name')->find($id);
         if (!$order) {

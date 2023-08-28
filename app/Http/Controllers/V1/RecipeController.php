@@ -120,7 +120,7 @@ class RecipeController extends Controller
      *     security={{"bearerAuth":{}}}
      * )
      */
-    public function show($id)
+    public function find($id)
     {
         $recipe = $this->recipeService->handleGetRecipe($id);
         return response()->json($recipe);

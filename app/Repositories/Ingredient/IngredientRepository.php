@@ -18,7 +18,7 @@ class IngredientRepository implements IngredientRepositoryInterface
         return Ingredient::create($data);
     }
 
-    public function show($id)
+    public function find($id)
     {
         $ingredient = Ingredient::find($id);
         if (!$ingredient) {

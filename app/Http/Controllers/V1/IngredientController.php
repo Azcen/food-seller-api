@@ -146,7 +146,7 @@ class IngredientController extends Controller
      *     security={{"bearerAuth":{}}}
      * )
      */
-    public function show($id)
+    public function find($id)
     {
         $ingredient = $this->ingredientService->handleGetIngredient($id);
         return response()->json($ingredient);

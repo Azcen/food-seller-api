@@ -83,7 +83,7 @@ class OrderController extends Controller
      *         name="id",
      *         in="path",
      *         required=true,
-     *         @OA\Schema(type="string"),
+     *         @OA\Schema(type="integer"),
      *         description="ID of the order"
      *     ),
      *     @OA\Response(
@@ -107,7 +107,7 @@ class OrderController extends Controller
      *     security={{"bearerAuth":{}}}
      * )
      */
-    public function show(string $id)
+    public function find($id)
     {
         $order = $this->orderService->handleGetOrder($id);
         return response()->json($order);

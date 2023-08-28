@@ -31,7 +31,7 @@ class RecipeService
 
     public function handleGetRecipe($id)
     {
-        $recipe = $this->recipeRepository->show($id);
+        $recipe = $this->recipeRepository->find($id);
         return $this->formatRecipeData($recipe);
     }
 

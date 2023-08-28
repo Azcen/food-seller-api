@@ -18,7 +18,7 @@ class RecipeRepository implements RecipeRepositoryInterface
         return $recipe;
     }
 
-    public function show($id)
+    public function find($id)
     {
         $recipe = Recipe::find($id);
         if (!$recipe) {
