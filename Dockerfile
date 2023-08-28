@@ -36,6 +36,7 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 # Run Laravel commands
 RUN php artisan key:generate
 RUN php artisan jwt:secret
+RUN php artisan config:clear
 RUN php artisan migrate
 
 # Expose port 8080 and start the PHP-FPM server
