@@ -5,7 +5,6 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Auth\AuthenticationException;
 
 class CustomExceptionHandler extends ExceptionHandler
 {

@@ -5,22 +5,25 @@ namespace App\Services;
 use App\Repositories\Auth\AuthRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
-
+use App\Helpers\JWTHelper;
+use App\Exceptions\CustomException;
 
 class AuthService
 {
     protected $authRepository;
+    protected $jwtHelper;
 
-    public function __construct(AuthRepositoryInterface $authRepository)
+    public function __construct(AuthRepositoryInterface $authRepository, JWTHelper $jwtHelper)
     {
         $this->authRepository = $authRepository;
+        $this->jwtHelper = $jwtHelper;
     }
 
     public function handleRegistration(array $data)
     {
         $user = $this->authRepository->register($data);
 
-        $token = JWTAuth::fromUser($user);
+        $token = $this->jwtHelper->fromUser($user);
 
         return [
             'user' => $user,
@@ -30,12 +33,9 @@ class AuthService
 
     public function handleLogin(array $credentials)
     {
-        try {
-            if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'Unauthorized'], 401);
-            }
-        } catch (JWTException $e) {
-            return response()->json(['error' => 'Could not create token'], 500);
+        $token = $this->jwtHelper->attempt($credentials);
+        if (!$token) {
+            throw new CustomException('Wrong user or password', 401);
         }
         
         $user = $this->authRepository->login();
@@ -44,11 +44,11 @@ class AuthService
             'user' => $user,
             'token' => $token,
         ];
-
     }
 
     public function handleLogout()
     {
+        $this->jwtHelper->invalidate();
         $this->authRepository->logout();
         
         return ['message' => 'Successfully logged out'];
@@ -56,7 +56,7 @@ class AuthService
 
     public function getUserProfile()
     {
-        $user = $this->authRepository->getProfile();
+        $user = $this->jwtHelper->authenticate();
         return [
             'user' => $user,
         ];
