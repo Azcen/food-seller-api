@@ -1,7 +1,7 @@
 FROM php:8.2-fpm
 
 # Set the working directory in the container
-WORKDIR /var/www/html
+WORKDIR /var/www/food-seller-api
 
 # Install system dependencies
 RUN apt-get update && \
@@ -31,7 +31,9 @@ RUN apt-get install -y npm
 RUN npm install
 
 # Set permissions for Laravel
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/food-seller-api/storage /var/www/food-seller-api/bootstrap/cache
+
+RUN apt-get update && apt-get install -y nano
 
 # Run Laravel commands
 RUN php artisan key:generate
